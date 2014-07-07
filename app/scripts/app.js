@@ -27,7 +27,8 @@ angular.module('bulbsCmsApp', [
   'URLify',
   'moment',
   'PNotify',
-  'keypress'
+  'keypress',
+  'firebase'
 ])
 .config(function ($locationProvider, $routeProvider, $sceProvider, routes) {
   $locationProvider.html5Mode(true);
