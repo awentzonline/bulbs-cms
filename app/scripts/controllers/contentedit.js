@@ -4,8 +4,7 @@ angular.module('bulbsCmsApp')
   .controller('ContenteditCtrl', function (
     $scope, $routeParams, $http, $window,
     $location, $timeout, $interval, $compile, $q,
-    $modal, $firebase,
-    $, _, keypress,
+    $modal, $, _, keypress,
     IfExistsElse, Localstoragebackup, ContentApi, ReviewApi, Login, routes)
   {
     $scope.PARTIALS_URL = routes.PARTIALS_URL;
@@ -289,9 +288,6 @@ angular.module('bulbsCmsApp')
       var interval = 60000; //1 minute
       return $interval(Localstoragebackup.backupToLocalStorage, interval)
     })();
-
-    var fbase = new Firebase('http://luminous-fire-8340.firebaseio.com');
-    fbase.set({hi: '1'});
 
 
   });
