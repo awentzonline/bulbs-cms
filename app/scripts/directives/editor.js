@@ -93,7 +93,6 @@ angular.module('bulbsCmsApp')
             toolbar: {
               linkTools: $("#link-tools-template").html()
             },
-            undoManager: new UndoManager(),
             placeholder: attrs.placeholder ||  "Write here",
             editSource: true,
             // NOT SURE WHAT TO DO ABOUT THIS....
@@ -116,7 +115,6 @@ angular.module('bulbsCmsApp')
           var defaultValue = "";
           var options = {
             /* global options */
-            element: element[0],
             onContentChange: read,
             placeholder: attrs.placeholder ||  "Type your Headline",
             allowNewline: false,
@@ -129,7 +127,7 @@ angular.module('bulbsCmsApp')
           }
         }
 
-        var editor = new Editor(options);
+        var editor = new OnionEditor($(".editor", element[0])[0], options);
 
         ngModel.$render = function() {
           editor.setContent(ngModel.$viewValue || defaultValue);
