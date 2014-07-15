@@ -84,30 +84,41 @@ angular.module('bulbsCmsApp')
           return;
         }
 
+        var formatting;
+        if (attrs.formatting) {
+          formatting = attrs.formatting.split(",");
+        }
+
         if (attrs.role == "multiline") {
-          var defaultValue = "<p><br></p>";
           var options = {
             /* global options */
-            element: element[0],
             onContentChange: read,
-            toolbar: {
-              linkTools: $("#link-tools-template").html()
+            multiline: true,
+            
+            formatting: formatting || ['link', 'bold','italic','blockquote','heading','list'],
+            
+            placeholder: {
+              text: attrs.placeholder ||  "<p>Write here</p>",
+              container: $(".editorPlaceholder", element[0])[0],
             },
-            placeholder: attrs.placeholder ||  "Write here",
-            editSource: true,
-            // NOT SURE WHAT TO DO ABOUT THIS....
-            avlink: {
-              thingsUrl: "/cms/api/v1/things/",
-              contentUrl:"/cms/api/v1/content/",
-              host: "avclub.com"
+
+            link: {
+              domain: "avclub.com"
             },
+
             statsContainer: ".wordcount",
-            /* This probably deserves its own file */
-            inline: EditorOptions.getOptions(),
-            uploadImage: BettyCropper.upload,
-            editImage: openImageCropModal,
-            uploadVideo: Zencoder.onVideoFileUpload,
-            videoEmbedUrl: VIDEO_EMBED_URL
+            
+            inlineObjects:'/views/inline-objects.json',
+
+            image: {
+              onInsert: BettyCropper.upload,
+              onEdit: openImageCropModal,
+            },
+            video: {
+              onInsert: Zencoder.onVideoFileUpload,
+              onEdit: function() {},
+              videoEmbedUrl: VIDEO_EMBED_URL
+            }
           }
         }
         else {
@@ -115,15 +126,13 @@ angular.module('bulbsCmsApp')
           var defaultValue = "";
           var options = {
             /* global options */
+            multiline: false,
             onContentChange: read,
-            placeholder: attrs.placeholder ||  "Type your Headline",
-            allowNewline: false,
-            allowNbsp: false,
-            characterLimit: 200,
-            sanitize: {
-              elements: ['i', 'em'],
-              remove_contents: ['script', 'style', ],
-            }
+            placeholder: {
+              text: attrs.placeholder ||  "<p>Write here</p>",
+              container: $(".editorPlaceholder", element[0])[0],
+            },
+            formatting: formatting || []
           }
         }
 
@@ -136,9 +145,6 @@ angular.module('bulbsCmsApp')
         function read() {
           scope.$apply(function(){
             var html = editor.getContent();
-            if (html.trim() === defaultValue) {
-              html = "";
-            }
             ngModel.$setViewValue(html);
           });
         }
