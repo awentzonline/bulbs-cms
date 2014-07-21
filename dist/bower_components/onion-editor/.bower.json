@@ -36,12 +36,12 @@
     "scribe-plugin-toolbar": "0.1.0",
     "almond": "0.2.9"
   },
-  "_release": "0ccb49c9ef",
+  "_release": "5abbf32503",
   "_resolution": {
     "type": "commit",
-    "commit": "0ccb49c9ef8e2041876e8340731747101c3abce1"
+    "commit": "5abbf3250361ff8b0ae5331518a19dee3508c74e"
   },
   "_source": "git://github.com/theonion/editor.git",
-  "_target": "0ccb49c9ef8e2041876e8340731747101c3abce1",
+  "_target": "5abbf3250361ff8b0ae5331518a19dee3508c74e",
   "_originalSource": "theonion/editor"
 }
