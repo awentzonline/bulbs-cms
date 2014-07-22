@@ -417,8 +417,8 @@ angular.module('bulbsCmsApp', [
               });
             }
           }
-          return $q.reject(rejection);
         });
+        return $q.reject(rejection);
       }
     }
   });
